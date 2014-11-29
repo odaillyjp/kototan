@@ -1,0 +1,15 @@
+%section#selectedArea
+  .firstMoji
+  .words
+
+%br
+
+%section
+  .notice
+    場に出ている文字をクリック
+  - @kana_list.each do |row|
+    .row
+      - row.each do |kana|
+        .char
+          - next if kana.nil?
+          = link_to kana, '#', class: 'selectMoji'
