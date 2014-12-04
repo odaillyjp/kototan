@@ -1,0 +1,9 @@
+.main
+  %section.main-word-list
+    -# 単語を表示する部分
+  .main-kana-list
+    - Kana.all.each do |kana_row_maps|
+      .main-kana-row
+        - kana_row_maps.each do |kana|
+          .main-kana-item{ data: { kana: kana } }
+            %a.main-kana-item-link= kana

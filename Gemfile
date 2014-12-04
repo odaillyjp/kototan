@@ -9,7 +9,8 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
-gem 'haml'
+gem 'haml-rails'
+gem 'handlebars_assets'
 
 # WordBasket libralies
 gem 'unf'
