@@ -1,9 +1,17 @@
+.main-slideshow-area
+  .main-slideshow-area-inner
+    .button-movable-word.button-movable-left.is-hidden
+      <
+    .button-movable-word.button-movable-right.is-hidden
+      >
+    %section.slide-list
+      -# スライド表示部分
+
 .main
-  %section.main-word-list
-    -# 単語を表示する部分
-  .main-kana-list
-    - Kana.all.each do |kana_row_maps|
-      .main-kana-row
-        - kana_row_maps.each do |kana|
-          .main-kana-item{ data: { kana: kana } }
-            %a.main-kana-item-link= kana
+  .main-kana
+    .kana-list
+      - Kana.all.reverse.transpose.each do |kana_row_maps|
+        .kana-row
+          - kana_row_maps.each do |kana|
+            .kana-item
+              %a.kana-item-link{ data: { kana: kana }}= kana

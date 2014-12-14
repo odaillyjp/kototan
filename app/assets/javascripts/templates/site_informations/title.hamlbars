@@ -1,0 +1,10 @@
+.site-description
+  『ワードバスケット』で使える「ことば」を見つける
+.site-title
+  = image_tag 'nobg_backpack.png', size: '64x64', class: 'image-title-icon'
+  ワードバックパック
+.site-description
+  %strong.blue><あいうえお表
+  の中から、
+  %strong.red><最初の文字
+  をクリックしてください

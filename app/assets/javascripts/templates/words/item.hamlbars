@@ -1,4 +1,2 @@
-.main-word-item-head {{head}}
-.main-word-item-last {{last}}
-.main-word-item-name {{name}}
-.main-word-item-furigana {{furigana}}
+.word-item-name {{name}}
+.word-item-furigana {{furigana}}
