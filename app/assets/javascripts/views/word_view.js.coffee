@@ -26,6 +26,7 @@ app.Views.WordsView = Backbone.View.extend
     @wordsCollection = new app.Collections.WordsCollection()
     @wordsCollection.bind('add', @appendWord)
     @cardsCollection = new app.Collections.CardsCollection()
+    @cardsCollection.bind('add', @appendCard)
     @render()
     @appendSiteInformation(JST['site_informations/title'])
 
@@ -70,6 +71,15 @@ app.Views.WordsView = Backbone.View.extend
     $('.slide-list', @$el).append(wordView.render())
     $('.button-movable-left', @$el).removeClass('is-hidden') if $('.word-item', @$el).length >= 2
 
+  appendCard: (card) ->
+    cardView = new app.Views.CardView(model: card)
+    $('.card-list', @$el).append(cardView.render())
+    if $('.card-item', @$el).length >= 2
+      $('.card-list').removeClass('is-hidden')
+      $('.card-item:nth-last-child(3)').removeClass('is-head')
+      $('.card-item:nth-last-child(2)').removeClass('is-last').addClass('is-head')
+      $('.card-item:last-child').addClass('is-last')
+
   appendSiteInformation: (template) ->
     $('.site-information-item.on-center').removeClass('on-center').addClass('on-left-side is-opaqued')
     siteInformationView = new app.Views.SiteInformationView
@@ -87,14 +97,22 @@ app.Views.WordsView = Backbone.View.extend
 
   moveToPrevWord: ->
     currentWord = $('.word-item.on-center')
+    currentHeadCard = $('.card-item.is-head')
     currentWord.removeClass('on-center').addClass('on-right-side is-opaqued')
     currentWord.prev().removeClass('on-left-side is-opaqued').addClass('on-center')
+    currentHeadCard.prev().addClass('is-head')
+    currentHeadCard.removeClass('is-head').addClass('is-last')
+    currentHeadCard.next().removeClass('is-last')
     $('.button-movable-right', @$el).removeClass('is-hidden')
     $('.button-movable-left', @$el).addClass('is-hidden') if currentWord.prevAll().length <= 1
 
   moveToNextWord: ->
     currentWord = $('.word-item.on-center')
+    currentLastCard = $('.card-item.is-last')
     currentWord.removeClass('on-center').addClass('on-left-side is-opaqued')
     currentWord.next().removeClass('on-right-side is-opaqued').addClass('on-center')
+    currentLastCard.next().addClass('is-last')
+    currentLastCard.removeClass('is-last').addClass('is-head')
+    currentLastCard.prev().removeClass('is-head')
     $('.button-movable-left', @$el).removeClass('is-hidden')
     $('.button-movable-right', @$el).addClass('is-hidden') if currentWord.nextAll().length <= 1

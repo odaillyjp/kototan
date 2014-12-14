@@ -6,6 +6,8 @@
       >
     %section.slide-list
       -# スライド表示部分
+    %section.card-list.is-hidden
+      -# カード表示部分
 
 .main
   .main-kana
