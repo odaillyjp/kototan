@@ -1,3 +1,41 @@
+@mixin text-size-adjust($size) {
+  text-size-adjust: $size;
+  -moz-text-size-adjust: $size;
+  -ms-text-size-adjust: $size;
+  -o-text-size-adjust: $size;
+  -webkit-text-size-adjust: $size;
+}
+
+@mixin animation-duration($time) {
+  animation-duration: $time;
+  -moz-animation-duration: $time;
+  -ms-animation-duration: $time;
+  -o-animation-duration: $time;
+  -webkit-animation-duration: $time;
+}
+
+@mixin animation-name($name) {
+  animation-name: $name;
+  -moz-animation-name: $name;
+  -ms-animation-name: $name;
+  -o-animation-name: $name;
+  -webkit-animation-name: $name;
+}
+
+@mixin border-radius($size) {
+  border-radius: $size;
+  -moz-border-radius: $size;
+  -ms-border-radius: $size;
+  -o-border-radius: $size;
+  -webkit-border-radius: $size;
+}
+
+@mixin keyframes($animation-name) {
+  @-webkit-keyframes $animation-name { @content; }
+  @-moz-keyframes $animation-name { @content; }
+  @keyframes $animation-name { @content; }
+}
+
 // Base
 /* Eric Meyer's Reset CSS v2.0 - http://cssreset.com */
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{border:0;font-size:100%;font:inherit;vertical-align:baseline;margin:0;padding:0}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:none}table{border-collapse:collapse;border-spacing:0}
@@ -5,8 +43,7 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
 html {
   line-height: 1.6;
   font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
-  -webkit-text-size-adjust: 100%;
-  -ms-text-size-adjust: 100%;
+  @include text-size-adjust(100%);
 }
 
 body {
@@ -68,8 +105,8 @@ $button_color: #2ecc71;
 }
 
 .site-information-item:not(:first-child) {
-  -webkit-animation-duration: 0.6s;
-  -webkit-animation-name: slidein;
+  @include animation-duration(0.6s);
+  @include animation-name(slide-in);
 }
 
 .site-description {
@@ -103,8 +140,8 @@ $button_color: #2ecc71;
 }
 
 .word-item:last-child {
-  -webkit-animation-duration: 0.6s;
-  -webkit-animation-name: slidein;
+  @include animation-duration(0.6s);
+  @include animation-name(slide-in);
 }
 
 .word-item-name {
@@ -131,7 +168,7 @@ $button_color: #2ecc71;
   padding: 10px;
   background: #ECF0F1;
   border: 2px solid #2980b9;
-  -webkit-border-radius: 6px;
+  @include border-radius(6px);
   cursor: pointer;
   transition: all 0.2s;
   opacity: 0.6;
@@ -169,7 +206,7 @@ $button_color: #2ecc71;
   line-height: 50px;
   padding: 8px;
   background: $main_color;
-  -webkit-border-radius: 6px;
+  @include border-radius(6px);
   font-size: 20px;
   color: white;
   cursor: pointer;
@@ -232,7 +269,7 @@ $movement-of-word: 50%;
   opacity: 1;
 }
 
-@-webkit-keyframes slidein {
+@include keyframes(slide-in) {
   from { opacity: 0; left: $movement-of-word; }
   to   { opacity: 1; left: 0%; }
 }
