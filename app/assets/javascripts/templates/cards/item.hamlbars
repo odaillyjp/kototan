@@ -1,1 +1,1 @@
-{{ kana }}
+%a.card-item-link {{ kana }}
