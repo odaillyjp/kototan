@@ -25,9 +25,9 @@ app.Views.WordsView = Backbone.View.extend
 
   initialize: ->
     @wordsCollection = new app.Collections.WordsCollection()
-    @wordsCollection.bind('add', @appendWord)
+    @listenTo @wordsCollection, 'add', @appendWord
     @cardsCollection = new app.Collections.CardsCollection()
-    @cardsCollection.bind('add', @appendCard)
+    @listenTo @cardsCollection, 'add', @appendCard
     @render()
     @appendSiteInformation(JST['site_informations/title'])
 
@@ -37,33 +37,36 @@ app.Views.WordsView = Backbone.View.extend
   appendKana: (elem) ->
     currentKana = elem.currentTarget.dataset.kana
     card = new app.Models.Card(kana: currentKana)
-    @cardsCollection.add(card)
 
-    if @cardsCollection.length == 1
+    if @cardsCollection.length == 0
+      @cardsCollection.add(card)
       @appendSiteInformation(JST['site_informations/first_kana'])
       return false
 
     @removeSiteInformation()
     @removeNotice()
-    previousKana = @cardsCollection.at(@cardsCollection.length - 2).get('kana')
-    @sendRequest(previousKana, currentKana)
+    previousKana = @cardsCollection.last().get('kana')
+
+    @sendSearchRequest(previousKana, currentKana)
+      .success (data) =>
+        @cardsCollection.add(card)
+        word = new app.Models.Word
+          name: data.name
+          furigana: data.furigana
+          head: previousKana
+          last: currentKana
+        @wordsCollection.add(word)
+      .error (xhr) =>
+        errors = $.parseJSON(xhr.responseText).errors
+        @appendNotice(errors)
+
     false
 
-  sendRequest: (head, last) ->
+  sendSearchRequest: (head, last) ->
     $.ajax
       type: 'GET'
       url:  "/words/search?head=#{head}&last=#{last}"
       dataType: 'JSON'
-      success: (data) =>
-        word = new app.Models.Word
-          name: data.name
-          furigana: data.furigana
-          head: head
-          last: last
-        @wordsCollection.add(word)
-      error: (xhr) =>
-        errors = $.parseJSON(xhr.responseText).errors
-        @appendNotice(errors)
 
   appendWord: (word) ->
     $('.word-item').removeClass('on-center on-right-side').addClass('on-left-side is-opaqued')
