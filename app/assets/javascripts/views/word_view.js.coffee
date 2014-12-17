@@ -69,7 +69,7 @@ app.Views.WordsView = Backbone.View.extend
       dataType: 'JSON'
 
   appendWord: (word) ->
-    $('.word-item').removeClass('on-center on-right-side').addClass('on-left-side is-opaqued')
+    $('.word-item', @$el).removeClass('on-center on-right-side').addClass('on-left-side is-opaqued')
     $('.button-movable-right', @$el).addClass('is-hidden')
     wordView = new app.Views.WordView(model: word)
     $('.slide-list', @$el).append(wordView.render())
@@ -87,12 +87,12 @@ app.Views.WordsView = Backbone.View.extend
       $('.card-item:last-child', @$el).addClass('is-last')
 
   appendSiteInformation: (template) ->
-    $('.site-information-item.on-center').removeClass('on-center').addClass('on-left-side is-opaqued')
+    $('.site-information-item.on-center', @$el).removeClass('on-center').addClass('on-left-side is-opaqued')
     siteInformationView = new app.Views.SiteInformationView
     $('.slide-list', @$el).append(siteInformationView.render(template))
 
   removeSiteInformation: ->
-    $('.site-information-item').remove()
+    $('.site-information-item', @$el).remove()
 
   appendNotice: (message) ->
     message = message.join(' ') if _.isArray(message)
@@ -102,8 +102,8 @@ app.Views.WordsView = Backbone.View.extend
     $('.alert.notice', @$el).remove()
 
   moveToPrevWord: ->
-    currentWord = $('.word-item.on-center')
-    currentHeadCard = $('.card-item.is-head')
+    currentWord = $('.word-item.on-center', @$el)
+    currentHeadCard = $('.card-item.is-head', @$el)
     currentWord.removeClass('on-center').addClass('on-right-side is-opaqued')
     currentWord.prev().removeClass('on-left-side is-opaqued').addClass('on-center')
     currentHeadCard.prev().addClass('is-head')
@@ -113,8 +113,8 @@ app.Views.WordsView = Backbone.View.extend
     $('.button-movable-left', @$el).addClass('is-hidden') if currentWord.prevAll().length <= 1
 
   moveToNextWord: ->
-    currentWord = $('.word-item.on-center')
-    currentLastCard = $('.card-item.is-last')
+    currentWord = $('.word-item.on-center', @$el)
+    currentLastCard = $('.card-item.is-last', @$el)
     currentWord.removeClass('on-center').addClass('on-left-side is-opaqued')
     currentWord.next().removeClass('on-right-side is-opaqued').addClass('on-center')
     currentLastCard.next().addClass('is-last')
@@ -132,9 +132,9 @@ app.Views.WordsView = Backbone.View.extend
     destinationWord = $(".word-item:nth-child(#{destinationIndex})", @$el)
     # ことばのクラスを更新
     if destinationIndex > currentIndex
-      $(".word-item:not(:nth-child(n+#{destinationIndex}))").removeClass('on-center on-right-side').addClass('on-left-side is-opaqued')
+      $(".word-item:not(:nth-child(n+#{destinationIndex}))", @$el).removeClass('on-center on-right-side').addClass('on-left-side is-opaqued')
     else
-      $(".word-item:nth-child(n+#{destinationIndex + 1})").removeClass('on-center on-left-side').addClass('on-right-side is-opaqued')
+      $(".word-item:nth-child(n+#{destinationIndex + 1})", @$el).removeClass('on-center on-left-side').addClass('on-right-side is-opaqued')
     destinationWord.removeClass('on-right-side on-left-side is-opaqued').addClass('on-center')
     # カードのクラスを更新
     $('.card-item.is-head', @$el).removeClass('is-head')
@@ -147,6 +147,6 @@ app.Views.WordsView = Backbone.View.extend
     else
       $('.button-movable-left', @$el).removeClass('is-hidden')
     if destinationWord.nextAll().length <= 1
-      $('.button-movable-right', @$el).addClass('is-hidden') 
+      $('.button-movable-right', @$el).addClass('is-hidden')
     else
-      $('.button-movable-right', @$el).removeClass('is-hidden') 
+      $('.button-movable-right', @$el).removeClass('is-hidden')
