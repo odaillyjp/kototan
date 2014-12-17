@@ -13,16 +13,22 @@ app.Collections.CardsCollection = Backbone.Collection.extend
     @listenTo @, 'add', @setCurrentCard
 
   prevCard: ->
-    return null if @first() == @currentCard
+    return null if @isFirst()
     @at(@currentIndex - 1)
 
   nextCard: ->
-    return null if @last() == @currentCard
+    return null if @isLast()
     @at(@currentIndex + 1)
 
   setCurrentCard: (card) ->
     @currentIndex = @indexOf(card)
     @currentCard = card
+
+  isFirst: ->
+    @first() == @currentCard
+
+  isLast: ->
+    @last() == @currentCard
 
   destroyAfter: ->
     @rest(@currentIndex).each (card) ->

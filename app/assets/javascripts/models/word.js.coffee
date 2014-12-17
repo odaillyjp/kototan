@@ -13,16 +13,22 @@ app.Collections.WordsCollection = Backbone.Collection.extend
     @listenTo @, 'add', @setCurrentWord
 
   prevWord: ->
-    return null if @first() == @currentWord
+    return null if @isFirst()
     @at(@currentIndex - 1)
 
   nextWord: ->
-    return null if @last() == @currentWord
+    return null if @isLast()
     @at(@currentIndex + 1)
 
   setCurrentWord: (word) ->
     @currentIndex = @indexOf(word)
     @currentWord = word
+
+  isFirst: ->
+    @first() == @currentWord
+
+  isLast: ->
+    @last() == @currentWord
 
   destroyAfter: ->
     @rest(@currentIndex).each (word) ->
