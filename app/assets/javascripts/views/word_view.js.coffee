@@ -9,6 +9,9 @@ app.Views.WordView = Backbone.View.extend
   className: 'word-item slide-item on-center'
   template: JST['words/item']
 
+  initialize: ->
+    @listenTo @model, 'destroy', @remove
+
   render: ->
     context = @model.toJSON()
     @$el.html(@template(context))
@@ -22,6 +25,7 @@ app.Views.WordsView = Backbone.View.extend
     'click .card-item-link': 'jumpToWord'
     'click .button-movable-left': 'moveToPrevWord'
     'click .button-movable-right': 'moveToNextWord'
+    'click .button-remove-word': 'removeWord'
 
   initialize: ->
     @wordsCollection = new app.Collections.WordsCollection()
@@ -73,7 +77,12 @@ app.Views.WordsView = Backbone.View.extend
     $('.button-movable-right', @$el).addClass('is-hidden')
     wordView = new app.Views.WordView(model: word)
     $('.slide-list', @$el).append(wordView.render())
+    $('.button-remove-word', @$el).removeClass('is-hidden')
     $('.button-movable-left', @$el).removeClass('is-hidden') if $('.word-item', @$el).length >= 2
+
+  removeWord: ->
+    @wordsCollection.currentWord.destroy()
+    @cardsCollection.currentCard.destroy()
 
   appendCard: (card) ->
     $('.card-item.is-head', @$el).removeClass('is-head')
@@ -111,6 +120,8 @@ app.Views.WordsView = Backbone.View.extend
     currentHeadCard.next().removeClass('is-last')
     $('.button-movable-right', @$el).removeClass('is-hidden')
     $('.button-movable-left', @$el).addClass('is-hidden') if currentWord.prevAll().length <= 1
+    @wordsCollection.setCurrentWord(@wordsCollection.prevWord())
+    @cardsCollection.setCurrentCard(@cardsCollection.prevCard())
 
   moveToNextWord: ->
     currentWord = $('.word-item.on-center', @$el)
@@ -122,6 +133,8 @@ app.Views.WordsView = Backbone.View.extend
     currentLastCard.prev().removeClass('is-head')
     $('.button-movable-left', @$el).removeClass('is-hidden')
     $('.button-movable-right', @$el).addClass('is-hidden') if currentWord.nextAll().length <= 1
+    @wordsCollection.setCurrentWord(@wordsCollection.nextWord())
+    @cardsCollection.setCurrentCard(@cardsCollection.nextCard())
 
   jumpToWord: (elem) ->
     destinationCard = $("##{elem.currentTarget.dataset.id}", @$el)
@@ -136,11 +149,13 @@ app.Views.WordsView = Backbone.View.extend
     else
       $(".word-item:nth-child(n+#{destinationIndex + 1})", @$el).removeClass('on-center on-left-side').addClass('on-right-side is-opaqued')
     destinationWord.removeClass('on-right-side on-left-side is-opaqued').addClass('on-center')
+    @wordsCollection.setCurrentWord(@wordsCollection.at(destinationIndex - 1))
     # カードのクラスを更新
     $('.card-item.is-head', @$el).removeClass('is-head')
     $('.card-item.is-last', @$el).removeClass('is-last')
     destinationCard.addClass('is-last')
     destinationCard.prev().addClass('is-head')
+    @cardsCollection.setCurrentCard(@cardsCollection.at(destinationIndex))
     # ボタンの状態を更新
     if destinationWord.prevAll().length <= 1
       $('.button-movable-left', @$el).addClass('is-hidden')

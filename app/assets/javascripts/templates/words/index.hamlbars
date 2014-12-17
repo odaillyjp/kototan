@@ -4,6 +4,8 @@
       <
     .button-movable-word.button-movable-right.is-hidden
       >
+    .button-remove-word.is-hidden
+      DEL
     %section.slide-list
       -# スライド表示部分
     %section.card-list.is-hidden

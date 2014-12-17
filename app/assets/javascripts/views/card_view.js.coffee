@@ -9,6 +9,9 @@ app.Views.CardView = Backbone.View.extend
   className: 'card-item'
   template: JST['cards/item']
 
+  initialize: ->
+    @listenTo @model, 'destroy', @remove
+
   render: ->
     context = @model.toJSON()
     _.extend(context, id: @id())
