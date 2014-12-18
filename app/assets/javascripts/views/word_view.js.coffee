@@ -85,8 +85,7 @@ app.Views.WordsView = Backbone.View.extend
     @cardsCollection.currentCard.destroy()
 
   appendCard: (card) ->
-    $('.card-item.is-head', @$el).removeClass('is-head')
-    $('.card-item.is-last', @$el).removeClass('is-last')
+    @resetCardClass()
     cardView = new app.Views.CardView(model: card)
     $('.card-list', @$el).append(cardView.render())
     if $('.card-item', @$el).length >= 2
@@ -156,8 +155,7 @@ app.Views.WordsView = Backbone.View.extend
     destinationWord.removeClass('on-right-side on-left-side is-opaqued').addClass('on-center')
     @wordsCollection.setCurrentWord(@wordsCollection.at(destinationCardIndex - 1))
     # カードのクラスを更新
-    $('.card-item.is-head', @$el).removeClass('is-head')
-    $('.card-item.is-last', @$el).removeClass('is-last')
+    @resetCardClass()
     destinationCard.addClass('is-last')
     destinationCard.prev().addClass('is-head')
     @cardsCollection.setCurrentCard(@cardsCollection.at(destinationCardIndex))
@@ -175,3 +173,8 @@ app.Views.WordsView = Backbone.View.extend
       $('.button-movable-right', @$el).addClass('is-hidden')
     else
       $('.button-movable-right', @$el).removeClass('is-hidden')
+
+  # ひらがなカードのクラスのリセット
+  resetCardClass: ->
+    $('.card-item.is-head', @$el).removeClass('is-head')
+    $('.card-item.is-last', @$el).removeClass('is-last')
