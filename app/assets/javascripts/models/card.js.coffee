@@ -30,6 +30,7 @@ app.Collections.CardsCollection = Backbone.Collection.extend
   isLast: ->
     @last() == @currentCard
 
-  destroyAfter: ->
-    @rest(@currentIndex).each (card) ->
-      card.destroy
+  destroyAfterCurrent: ->
+    _.each @rest(@currentIndex).reverse(), (card) ->
+      card.destroy()
+    @setCurrentCard(@last())

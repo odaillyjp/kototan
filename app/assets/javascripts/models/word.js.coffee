@@ -30,6 +30,7 @@ app.Collections.WordsCollection = Backbone.Collection.extend
   isLast: ->
     @last() == @currentWord
 
-  destroyAfter: ->
-    @rest(@currentIndex).each (word) ->
-      word.destroy
+  destroyAfterCurrent: ->
+    _.each @rest(@currentIndex).reverse(), (word) ->
+      word.destroy()
+    @setCurrentWord(@last())

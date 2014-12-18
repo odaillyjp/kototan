@@ -81,8 +81,12 @@ app.Views.WordsView = Backbone.View.extend
     $('.button-movable-left', @$el).removeClass('is-hidden') if $('.word-item', @$el).length >= 2
 
   removeWord: ->
-    @wordsCollection.currentWord.destroy()
-    @cardsCollection.currentCard.destroy()
+    @wordsCollection.destroyAfterCurrent()
+    @cardsCollection.destroyAfterCurrent()
+    @resetCardClass()
+    $("#word-#{@wordsCollection.currentWord.cid}", @$el).removeClass('on-left-side is-opaqued').addClass('on-center')
+    $("#card-#{@cardsCollection.currentCard.cid}", @$el).addClass('is-last')
+    $("#card-#{@cardsCollection.prevCard().cid}", @$el).addClass('is-head')
 
   appendCard: (card) ->
     @resetCardClass()
