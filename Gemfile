@@ -11,11 +11,7 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'haml-rails'
 gem 'handlebars_assets'
-
-# WordBasket libralies
-gem 'unf'
-gem 'moji'
-gem 'firebase'
+gem 'word_basket', github: 'odaillyjp/word_basket', tag: 'v1.0.0'
 
 # Rails aseets
 gem 'rails-assets-lodash'
