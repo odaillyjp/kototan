@@ -1,6 +1,6 @@
 #= require_tree ../templates
 
-app = @WordBackpack
+app = @Kototan
 app.Views ?= {}
 
 app.Views.SiteInformationView = Backbone.View.extend

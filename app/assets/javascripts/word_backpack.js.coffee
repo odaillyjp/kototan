@@ -5,15 +5,15 @@
 
 'use strict'
 
-@WordBackpack =
+@Kototan =
   Models: {}
   Collections: {}
   Views: {}
   Routers: {}
 
   init: ->
-    new WordBackpack.Routers.WordRouter
+    new Kototan.Routers.WordRouter
     Backbone.history.start(pushState: true)
 
 $ ->
-  WordBackpack.init()
+  Kototan.init()

@@ -1,4 +1,4 @@
-app = @WordBackpack
+app = @Kototan
 app.Routers ?= {}
 
 app.Routers.WordRouter = Backbone.Router.extend

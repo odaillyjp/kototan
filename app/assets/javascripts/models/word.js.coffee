@@ -1,4 +1,4 @@
-app = @WordBackpack
+app = @Kototan
 app.Models ?= {}
 app.Collections ?= {}
 
