@@ -11,6 +11,7 @@ app.Views.WordView = Backbone.View.extend
 
   initialize: ->
     @listenTo @model, 'destroy', @remove
+    @listenTo @model, 'change', @render
 
   render: ->
     context = @model.toJSON()
@@ -81,12 +82,41 @@ app.Views.WordsView = Backbone.View.extend
     $('.button-movable-left', @$el).removeClass('is-hidden') if $('.word-item', @$el).length >= 2
 
   removeWord: ->
-    @wordsCollection.destroyAfterCurrent()
-    @cardsCollection.destroyAfterCurrent()
-    @resetCardClass()
-    $("#word-#{@wordsCollection.currentWord.cid}", @$el).removeClass('on-left-side is-opaqued').addClass('on-center')
-    $("#card-#{@cardsCollection.currentCard.cid}", @$el).addClass('is-last')
-    $("#card-#{@cardsCollection.prevCard().cid}", @$el).addClass('is-head')
+    styleSetting = =>
+      @resetCardClass()
+      $("#word-#{@wordsCollection.currentWord.cid}", @$el).removeClass('on-left-side on-right-side is-opaqued').addClass('on-center')
+      $("#card-#{@cardsCollection.currentCard.cid}", @$el).addClass('is-last')
+      $("#card-#{@cardsCollection.prevCard().cid}", @$el).addClass('is-head')
+      @changeMoveButtonState()
+    if @wordsCollection.isLast()
+      @wordsCollection.currentWord.destroy()
+      @cardsCollection.currentCard.destroy()
+      @wordsCollection.setCurrentWord(@wordsCollection.last())
+      @cardsCollection.setCurrentCard(@cardsCollection.last())
+      styleSetting()
+    else
+      prevWord = @wordsCollection.prevWord()
+      nextWord = @wordsCollection.nextWord()
+      prevCard = @cardsCollection.prevCard()
+      nextCard = @cardsCollection.nextCard()
+      @sendSearchRequest(prevCard.get('kana'), nextCard.get('kana'))
+        .success (data) =>
+          nextWord.set
+            'name': data.name
+            'furigana': data.furigana
+            'head': prevCard.get('kana')
+            'last': nextCard.get('kana')
+          @wordsCollection.currentWord.destroy()
+          @cardsCollection.currentCard.destroy()
+          @wordsCollection.setCurrentWord(nextWord)
+          @cardsCollection.setCurrentCard(nextCard)
+          styleSetting()
+        .error =>
+          @wordsCollection.currentWord.destroy()
+          @cardsCollection.currentCard.destroy()
+          @wordsCollection.setCurrentWord(prevWord)
+          @cardsCollection.setCurrentCard(prevCard)
+          styleSetting()
 
   appendCard: (card) ->
     @resetCardClass()

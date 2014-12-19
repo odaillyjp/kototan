@@ -5,7 +5,7 @@
     .button-movable-word.button-movable-right.is-hidden
       >
     .button-remove-word.is-hidden
-      DEL
+      ことばを取り除く
     %section.slide-list
       -# スライド表示部分
     %section.card-list.is-hidden
@@ -18,4 +18,7 @@
         .kana-row
           - kana_row_maps.each do |kana|
             .kana-item
-              %a.kana-item-link{ data: { kana: kana }}= kana
+              - if kana == '＿'
+                %a.kana-item-blank= kana
+              - else
+                %a.kana-item-link{ data: { kana: kana }}= kana

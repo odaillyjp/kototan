@@ -1,8 +1,7 @@
 .site-description
   『ワードバスケット』で使える「ことば」を見つける
 .site-title
-  = image_tag 'nobg_backpack.png', size: '64x64', class: 'image-title-icon'
-  ワードバックパック
+  ことばの探索機
 .site-description
   %strong.blue><あいうえお表
   の中から、

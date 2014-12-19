@@ -30,6 +30,17 @@
   -webkit-border-radius: $size;
 }
 
+@mixin border-bottom-radius($size) {
+  border-bottom-right-radius: $size;
+  border-bottom-left-radius: $size;
+  -moz-border-bottom-right-radius: $size;
+  -moz-border-bottom-left-radius: $size;
+  -o-border-bottom-right-radius: $size;
+  -o-border-bottom-left-radisu: $size;
+  -webkit-border-bottom-right-radius: $size;
+  -webkit-border-bottom-left-radius: $size;
+}
+
 @mixin keyframes($animation-name) {
   @-webkit-keyframes $animation-name { @content; }
   @-moz-keyframes $animation-name { @content; }
@@ -219,9 +230,21 @@ $button_color: #2ecc71;
   font-size: 32px;
 }
 
+.kana-item-blank {
+  line-height: 50px;
+  padding: 8px;
+  color: #9c9c9c;
+  background: #9c9c9c;
+  @include border-radius(6px);
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
 .button-movable-word {
   position: absolute;
-  top: 45%;
+  top: 35%;
+  cursor: pointer;
   z-index: 1000;
 }
 
@@ -231,6 +254,18 @@ $button_color: #2ecc71;
 
 .button-movable-right {
   right: 100px;
+}
+
+.button-remove-word {
+  position: absolute;
+  left: 10%;
+  top: 0%;
+  background: white;
+  padding: 10px;
+  @include border-bottom-radius(6px);
+  font-family: 'Wawati SC', 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+  cursor: pointer;
+  z-index: 1000;
 }
 
 // State
