@@ -148,7 +148,7 @@ $button_color: #2ecc71;
 }
 
 .word-item {
-  top: 30%;
+  top: 35%;
 }
 
 .word-item:last-child {
@@ -243,9 +243,33 @@ $button_color: #2ecc71;
 
 .button-movable-word {
   position: absolute;
-  top: 35%;
+  top: 42%;
   cursor: pointer;
   z-index: 1000;
+}
+
+.tab-button-list {
+  position: absolute;
+  left: 10%;
+  top: 0%;
+}
+
+.tab-button-item {
+  position: relative;
+  float: left;
+  background: white;
+  margin: 0 4px;
+  padding: 10px;
+  @include border-bottom-radius(6px);
+  font-family: 'Wawati SC', 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.button-clear-word {
+}
+
+.button-remove-word {
 }
 
 .button-movable-left  {
@@ -254,18 +278,6 @@ $button_color: #2ecc71;
 
 .button-movable-right {
   right: 100px;
-}
-
-.button-remove-word {
-  position: absolute;
-  left: 10%;
-  top: 0%;
-  background: white;
-  padding: 10px;
-  @include border-bottom-radius(6px);
-  font-family: 'Wawati SC', 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
-  cursor: pointer;
-  z-index: 1000;
 }
 
 // State

@@ -26,6 +26,7 @@ app.Views.WordsView = Backbone.View.extend
     'click .card-item-link': 'jumpToWord'
     'click .button-movable-left': 'moveToPrevWord'
     'click .button-movable-right': 'moveToNextWord'
+    'click .button-clear-word': 'clearWord'
     'click .button-remove-word': 'removeWord'
 
   initialize: ->
@@ -78,7 +79,7 @@ app.Views.WordsView = Backbone.View.extend
     $('.button-movable-right', @$el).addClass('is-hidden')
     wordView = new app.Views.WordView(model: word)
     $('.slide-list', @$el).append(wordView.render())
-    $('.button-remove-word', @$el).removeClass('is-hidden')
+    $('.tab-button-list', @$el).removeClass('is-hidden')
     $('.button-movable-left', @$el).removeClass('is-hidden') if $('.word-item', @$el).length >= 2
 
   removeWord: ->
@@ -117,6 +118,17 @@ app.Views.WordsView = Backbone.View.extend
           @wordsCollection.setCurrentWord(prevWord)
           @cardsCollection.setCurrentCard(prevCard)
           styleSetting()
+
+  clearWord: ->
+    @wordsCollection.reset()
+    @cardsCollection.reset()
+    @removeNotice()
+    $('.button-movable-left', @$el).addClass('is-hidden')
+    $('.button-movable-right', @$el).addClass('is-hidden')
+    $('.tab-button-list', @$el).addClass('is-hidden')
+    $('.slide-list', @$el).html('')
+    $('.card-list', @$el).html('')
+    @appendSiteInformation(JST['site_informations/title'])
 
   appendCard: (card) ->
     @resetCardClass()

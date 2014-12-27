@@ -1,11 +1,14 @@
 .main-slideshow-area
   .main-slideshow-area-inner
+    .tab-button-list.is-hidden
+      .tab-button-item.button-clear-word
+        最初からやり直す
+      .tab-button-item.button-remove-word
+        ことばを取り除く
     .button-movable-word.button-movable-left.is-hidden
       <
     .button-movable-word.button-movable-right.is-hidden
       >
-    .button-remove-word.is-hidden
-      ことばを取り除く
     %section.slide-list
       -# スライド表示部分
     %section.card-list.is-hidden
