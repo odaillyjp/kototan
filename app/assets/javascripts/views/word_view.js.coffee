@@ -134,11 +134,10 @@ app.Views.WordsView = Backbone.View.extend
     @resetCardClass()
     cardView = new app.Views.CardView(model: card)
     $('.card-list', @$el).append(cardView.render())
+    $('.card-item:last-child', @$el).addClass('is-last')
     if $('.card-item', @$el).length >= 2
-      $('.card-list', @$el).removeClass('is-hidden')
       $('.card-item:nth-last-child(3)', @$el).removeClass('is-head')
       $('.card-item:nth-last-child(2)', @$el).removeClass('is-last').addClass('is-head')
-      $('.card-item:last-child', @$el).addClass('is-last')
 
   appendSiteInformation: (template) ->
     $('.site-information-item.on-center', @$el).removeClass('on-center').addClass('on-left-side is-opaqued')

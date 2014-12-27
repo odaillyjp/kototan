@@ -11,7 +11,7 @@
       >
     %section.slide-list
       -# スライド表示部分
-    %section.card-list.is-hidden
+    %section.card-list
       -# カード表示部分
 
 .main
