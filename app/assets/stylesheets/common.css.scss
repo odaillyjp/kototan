@@ -282,6 +282,14 @@ $button_color: #2ecc71;
   right: 100px;
 }
 
+.alert {
+  position: absolute;
+  top: 68%;
+  width: 100%;
+  text-align: center;
+  font-weight: 700;
+}
+
 // State
 $movement-of-word: 50%;
 
