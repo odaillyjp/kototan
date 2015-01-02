@@ -114,8 +114,7 @@ app.Views.WordsView = Backbone.View.extend
     @wordsCollection.reset()
     @cardsCollection.reset()
     @removeNotice()
-    $('.button-movable-left', @$el).addClass('is-hidden')
-    $('.button-movable-right', @$el).addClass('is-hidden')
+    @changeMoveButtonState()
     $('.tab-button-list', @$el).addClass('is-hidden')
     $('.slide-list', @$el).html('')
     $('.card-list', @$el).html('')
@@ -167,24 +166,20 @@ app.Views.WordsView = Backbone.View.extend
 
   jumpToCurrentCard: ->
     currentCard = $("#card-#{@cardsCollection.currentCard().cid}", @$el)
-    @resetCardClass()
+    $('.card-item.is-head', @$el).removeClass('is-head')
+    $('.card-item.is-last', @$el).removeClass('is-last')
     currentCard.addClass('is-last')
     currentCard.prev().addClass('is-head')
 
   # ボタンの表示・非表示を切り替える
   changeMoveButtonState: ->
     # 戻るボタンの切り替え
-    if @wordsCollection.isFirst()
+    if @wordsCollection.isFirst() || @wordsCollection.isEmpty()
       $('.button-movable-left', @$el).addClass('is-hidden')
     else
       $('.button-movable-left', @$el).removeClass('is-hidden')
     # 進むボタンの切り替え
-    if @wordsCollection.isLast()
+    if @wordsCollection.isLast() || @wordsCollection.isEmpty()
       $('.button-movable-right', @$el).addClass('is-hidden')
     else
       $('.button-movable-right', @$el).removeClass('is-hidden')
-
-  # ひらがなカードのクラスのリセット
-  resetCardClass: ->
-    $('.card-item.is-head', @$el).removeClass('is-head')
-    $('.card-item.is-last', @$el).removeClass('is-last')
