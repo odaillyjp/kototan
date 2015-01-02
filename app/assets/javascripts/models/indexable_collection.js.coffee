@@ -18,7 +18,7 @@ app.Collections.IndexableCollection = Backbone.Collection.extend
   setCurrentModel: (model) ->
     beforeCurrentIndex = @currentIndex
     @currentIndex = @indexOf(model)
-    @.trigger('change:currentIndex') unless @currentIndex == beforeCurrentIndex
+    @.trigger('change:currentIndex')
 
   isFirst: ->
     @first() == @currentModel()

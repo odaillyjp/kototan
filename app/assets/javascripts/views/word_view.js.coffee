@@ -83,18 +83,11 @@ app.Views.WordsView = Backbone.View.extend
     @wordsCollection.setCurrentWord(word)
 
   removeWord: ->
-    styleSetting = =>
-      @resetCardClass()
-      $("#word-#{@wordsCollection.currentWord().cid}", @$el).removeClass('on-left-side on-right-side is-opaqued').addClass('on-center')
-      $("#card-#{@cardsCollection.currentCard().cid}", @$el).addClass('is-last')
-      $("#card-#{@cardsCollection.prevCard().cid}", @$el).addClass('is-head')
-      @changeMoveButtonState()
     if @wordsCollection.isLast()
       @wordsCollection.currentWord().destroy()
       @cardsCollection.currentCard().destroy()
       @wordsCollection.setCurrentWord(@wordsCollection.last())
       @cardsCollection.setCurrentCard(@cardsCollection.last())
-      styleSetting()
     else
       prevWord = @wordsCollection.prevWord()
       nextWord = @wordsCollection.nextWord()
@@ -111,13 +104,11 @@ app.Views.WordsView = Backbone.View.extend
           @cardsCollection.currentCard().destroy()
           @wordsCollection.setCurrentWord(nextWord)
           @cardsCollection.setCurrentCard(nextCard)
-          styleSetting()
         .error =>
           @wordsCollection.currentWord().destroy()
           @cardsCollection.currentCard().destroy()
           @wordsCollection.setCurrentWord(prevWord)
           @cardsCollection.setCurrentCard(prevCard)
-          styleSetting()
 
   clearWord: ->
     @wordsCollection.reset()
@@ -163,6 +154,7 @@ app.Views.WordsView = Backbone.View.extend
     destinationCard = $("##{elem.currentTarget.dataset.id}", @$el)
     destinationCardIndex = $('.card-item', @$el).index(destinationCard)
     destinationCardIndex = 1 if destinationCardIndex == 0
+    return false if destinationCardIndex == @cardsCollection.currentIndex
     @cardsCollection.setCurrentCard(@cardsCollection.at(destinationCardIndex))
     @wordsCollection.setCurrentWord(@wordsCollection.at(destinationCardIndex - 1))
 
