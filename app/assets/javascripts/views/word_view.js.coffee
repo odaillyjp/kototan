@@ -78,11 +78,9 @@ app.Views.WordsView = Backbone.View.extend
       dataType: 'JSON'
 
   appendWord: (word) ->
-    $('.button-movable-right', @$el).addClass('is-hidden')
     wordView = new app.Views.WordView(model: word)
     $('.slide-list', @$el).append(wordView.render())
     @wordsCollection.setCurrentWord(word)
-    $('.button-movable-left', @$el).removeClass('is-hidden') if $('.word-item', @$el).length >= 2
 
   removeWord: ->
     styleSetting = =>
@@ -155,12 +153,10 @@ app.Views.WordsView = Backbone.View.extend
   moveToPrevWord: ->
     @wordsCollection.setCurrentWord(@wordsCollection.prevWord())
     @cardsCollection.setCurrentCard(@cardsCollection.prevCard())
-    @changeMoveButtonState()
 
   moveToNextWord: ->
     @wordsCollection.setCurrentWord(@wordsCollection.nextWord())
     @cardsCollection.setCurrentCard(@cardsCollection.nextCard())
-    @changeMoveButtonState()
 
   jumpToWord: (elem) ->
     return false if @wordsCollection.isEmpty()
@@ -169,13 +165,13 @@ app.Views.WordsView = Backbone.View.extend
     destinationCardIndex = 1 if destinationCardIndex == 0
     @cardsCollection.setCurrentCard(@cardsCollection.at(destinationCardIndex))
     @wordsCollection.setCurrentWord(@wordsCollection.at(destinationCardIndex - 1))
-    @changeMoveButtonState()
 
   jumpToCurrentWord: ->
     currentWord = $("#word-#{@wordsCollection.currentWord().cid}", @$el)
     currentWord.prevAll().removeClass('on-center on-right-side').addClass('on-left-side is-opaqued')
     currentWord.nextAll().removeClass('on-center on-left-side').addClass('on-right-side is-opaqued')
     currentWord.removeClass('on-right-side on-left-side is-opaqued').addClass('on-center')
+    @changeMoveButtonState()
 
   jumpToCurrentCard: ->
     currentCard = $("#card-#{@cardsCollection.currentCard().cid}", @$el)
@@ -186,12 +182,12 @@ app.Views.WordsView = Backbone.View.extend
   # ボタンの表示・非表示を切り替える
   changeMoveButtonState: ->
     # 戻るボタンの切り替え
-    if @cardsCollection.isFirst() || @wordsCollection.isFirst()
+    if @wordsCollection.isFirst()
       $('.button-movable-left', @$el).addClass('is-hidden')
     else
       $('.button-movable-left', @$el).removeClass('is-hidden')
     # 進むボタンの切り替え
-    if @cardsCollection.isFirst() || @wordsCollection.isLast()
+    if @wordsCollection.isLast()
       $('.button-movable-right', @$el).addClass('is-hidden')
     else
       $('.button-movable-right', @$el).removeClass('is-hidden')
