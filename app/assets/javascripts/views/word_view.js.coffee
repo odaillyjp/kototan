@@ -83,6 +83,7 @@ app.Views.WordsView = Backbone.View.extend
     @wordsCollection.setCurrentWord(word)
 
   removeWord: ->
+    @removeNotice()
     if @wordsCollection.isLast()
       @wordsCollection.currentWord().destroy()
       @cardsCollection.currentCard().destroy()
