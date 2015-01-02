@@ -4,9 +4,6 @@ app.Collections ?= {}
 app.Collections.IndexableCollection = Backbone.Collection.extend
   currentIndex: -1
 
-  initialize: ->
-    @listenTo @, 'add', @setCurrentModel
-
   currentModel: ->
     @at(@currentIndex)
 

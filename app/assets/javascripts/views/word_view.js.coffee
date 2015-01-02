@@ -32,8 +32,10 @@ app.Views.WordsView = Backbone.View.extend
   initialize: ->
     @wordsCollection = new app.Collections.WordsCollection()
     @listenTo @wordsCollection, 'add', @appendWord
+    @listenTo @wordsCollection, 'change:currentIndex', @jumpToCurrentWord
     @cardsCollection = new app.Collections.CardsCollection()
     @listenTo @cardsCollection, 'add', @appendCard
+    @listenTo @cardsCollection, 'change:currentIndex', @jumpToCurrentCard
     @render()
     @appendSiteInformation(JST['site_informations/title'])
 
@@ -51,6 +53,7 @@ app.Views.WordsView = Backbone.View.extend
 
     @removeSiteInformation()
     @removeNotice()
+    $('.tab-button-list', @$el).removeClass('is-hidden')
     previousKana = @cardsCollection.last().get('kana')
 
     @sendSearchRequest(previousKana, currentKana)
@@ -75,11 +78,10 @@ app.Views.WordsView = Backbone.View.extend
       dataType: 'JSON'
 
   appendWord: (word) ->
-    $('.word-item', @$el).removeClass('on-center on-right-side').addClass('on-left-side is-opaqued')
     $('.button-movable-right', @$el).addClass('is-hidden')
     wordView = new app.Views.WordView(model: word)
     $('.slide-list', @$el).append(wordView.render())
-    $('.tab-button-list', @$el).removeClass('is-hidden')
+    @wordsCollection.setCurrentWord(word)
     $('.button-movable-left', @$el).removeClass('is-hidden') if $('.word-item', @$el).length >= 2
 
   removeWord: ->
@@ -131,13 +133,9 @@ app.Views.WordsView = Backbone.View.extend
     @appendSiteInformation(JST['site_informations/title'])
 
   appendCard: (card) ->
-    @resetCardClass()
     cardView = new app.Views.CardView(model: card)
     $('.card-list', @$el).append(cardView.render())
-    $('.card-item:last-child', @$el).addClass('is-last')
-    if $('.card-item', @$el).length >= 2
-      $('.card-item:nth-last-child(3)', @$el).removeClass('is-head')
-      $('.card-item:nth-last-child(2)', @$el).removeClass('is-last').addClass('is-head')
+    @cardsCollection.setCurrentCard(card)
 
   appendSiteInformation: (template) ->
     $('.site-information-item.on-center', @$el).removeClass('on-center').addClass('on-left-side is-opaqued')
@@ -155,56 +153,33 @@ app.Views.WordsView = Backbone.View.extend
     $('.alert.notice', @$el).remove()
 
   moveToPrevWord: ->
-    currentWord = $("#word-#{@wordsCollection.currentWord().cid}", @$el)
-    currentHeadCard = $("#card-#{@cardsCollection.prevCard().cid}", @$el)
-    # ことばをスライドさせる
-    currentWord.prev().removeClass('on-left-side is-opaqued').addClass('on-center')
-    currentWord.removeClass('on-center').addClass('on-right-side is-opaqued')
-    # ひらがなカードをスライドさせる
-    currentHeadCard.prev().addClass('is-head')
-    currentHeadCard.removeClass('is-head').addClass('is-last')
-    currentHeadCard.next().removeClass('is-last')
-    # Collectionオブジェクトに表示位置を覚えさせる
     @wordsCollection.setCurrentWord(@wordsCollection.prevWord())
     @cardsCollection.setCurrentCard(@cardsCollection.prevCard())
     @changeMoveButtonState()
 
   moveToNextWord: ->
-    currentWord = $("#word-#{@wordsCollection.currentWord().cid}", @$el)
-    currentLastCard = $("#card-#{@cardsCollection.currentCard().cid}", @$el)
-    # ことばをスライドさせる
-    currentWord.removeClass('on-center').addClass('on-left-side is-opaqued')
-    currentWord.next().removeClass('on-right-side is-opaqued').addClass('on-center')
-    # ひらがなカードをスライドさせる
-    currentLastCard.next().addClass('is-last')
-    currentLastCard.removeClass('is-last').addClass('is-head')
-    currentLastCard.prev().removeClass('is-head')
-    # Collectionオブジェクトに表示位置を覚えさせる
     @wordsCollection.setCurrentWord(@wordsCollection.nextWord())
     @cardsCollection.setCurrentCard(@cardsCollection.nextCard())
     @changeMoveButtonState()
 
   jumpToWord: (elem) ->
     destinationCard = $("##{elem.currentTarget.dataset.id}", @$el)
-    currentCard = $("#card-#{@cardsCollection.currentCard().cid}", @$el)
-    return false if destinationCard == currentCard
     destinationCardIndex = $('.card-item', @$el).index(destinationCard)
-    destinationWord = $(".word-item:nth-child(#{destinationCardIndex})", @$el)
-    # ことばのクラスを更新
-    if destinationCardIndex > @cardsCollection.currentIndex
-      # 移動先のことばより前のことばを、左にスライドさせる
-      $(".word-item:not(:nth-child(n+#{destinationCardIndex}))", @$el).removeClass('on-center on-right-side').addClass('on-left-side is-opaqued')
-    else
-      # 移動先のことばより後のことばを、右にスライドさせる
-      $(".word-item:nth-child(n+#{destinationCardIndex + 1})", @$el).removeClass('on-center on-left-side').addClass('on-right-side is-opaqued')
-    destinationWord.removeClass('on-right-side on-left-side is-opaqued').addClass('on-center')
-    @wordsCollection.setCurrentWord(@wordsCollection.at(destinationCardIndex - 1))
-    # カードのクラスを更新
-    @resetCardClass()
-    destinationCard.addClass('is-last')
-    destinationCard.prev().addClass('is-head')
     @cardsCollection.setCurrentCard(@cardsCollection.at(destinationCardIndex))
+    @wordsCollection.setCurrentWord(@wordsCollection.at(destinationCardIndex - 1))
     @changeMoveButtonState()
+
+  jumpToCurrentWord: ->
+    currentWord = $("#word-#{@wordsCollection.currentWord().cid}", @$el)
+    currentWord.prevAll().removeClass('on-center on-right-side').addClass('on-left-side is-opaqued')
+    currentWord.nextAll().removeClass('on-center on-left-side').addClass('on-right-side is-opaqued')
+    currentWord.removeClass('on-right-side on-left-side is-opaqued').addClass('on-center')
+
+  jumpToCurrentCard: ->
+    currentCard = $("#card-#{@cardsCollection.currentCard().cid}", @$el)
+    @resetCardClass()
+    currentCard.addClass('is-last')
+    currentCard.prev().addClass('is-head')
 
   # ボタンの表示・非表示を切り替える
   changeMoveButtonState: ->
