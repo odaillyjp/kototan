@@ -163,8 +163,10 @@ app.Views.WordsView = Backbone.View.extend
     @changeMoveButtonState()
 
   jumpToWord: (elem) ->
+    return false if @wordsCollection.isEmpty()
     destinationCard = $("##{elem.currentTarget.dataset.id}", @$el)
     destinationCardIndex = $('.card-item', @$el).index(destinationCard)
+    destinationCardIndex = 1 if destinationCardIndex == 0
     @cardsCollection.setCurrentCard(@cardsCollection.at(destinationCardIndex))
     @wordsCollection.setCurrentWord(@wordsCollection.at(destinationCardIndex - 1))
     @changeMoveButtonState()
