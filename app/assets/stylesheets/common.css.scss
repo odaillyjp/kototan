@@ -151,11 +151,6 @@ $button_color: #2ecc71;
   top: 35%;
 }
 
-.word-item:last-child {
-  @include animation-duration(0.6s);
-  @include animation-name(slide-in);
-}
-
 .word-item-name {
   margin: 10px 0;
   font-size: 48px;
@@ -311,6 +306,11 @@ $movement-of-word: 50%;
 
 .is-opaqued {
   opacity: 0;
+}
+
+.is-new.word-item {
+  @include animation-duration(0.6s);
+  @include animation-name(slide-in);
 }
 
 .is-head .card-item-link {

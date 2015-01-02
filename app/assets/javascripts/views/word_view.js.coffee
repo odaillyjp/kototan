@@ -78,7 +78,9 @@ app.Views.WordsView = Backbone.View.extend
       dataType: 'JSON'
 
   appendWord: (word) ->
+    $('.word-item.is-new', @$el).removeClass('is-new')
     wordView = new app.Views.WordView(model: word)
+    wordView.$el.addClass('is-new')
     $('.slide-list', @$el).append(wordView.render())
     @wordsCollection.setCurrentWord(word)
 
