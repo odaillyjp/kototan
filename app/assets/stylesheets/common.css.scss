@@ -1,3 +1,16 @@
+// ColorScheme
+$main_color:       #FF8500;
+$main_light_color: #FF9C31;
+$main_dark_color:  #EC7B00;
+$main_bg_color:    #FFE7CC;
+$s1_color:         #181CC3;
+$s1_light_color:   #4058DA;
+$s1_dark_color:    #0C24A1;
+$s2_color:         #00C169;
+$s2_light_color:   #2BDF6E;
+$s2_dark_color:    #00AB40;
+
+// Mixin
 @mixin text-size-adjust($size) {
   text-size-adjust: $size;
   -moz-text-size-adjust: $size;
@@ -41,6 +54,14 @@
   -webkit-border-bottom-left-radius: $size;
 }
 
+@mixin background-oblique-stripe($base_color, $sub_color, $size) {
+  background-image: -moz-linear-gradient(-45deg, $base_color 25%, $sub_color 25%, $sub_color 50%, $base_color 50%, $base_color 75%, $sub_color 75%, $sub_color);
+  background-image: -o-linear-gradient(-45deg, $base_color 25%, $sub_color 25%, $sub_color 50%, $base_color 50%, $base_color 75%, $sub_color 75%, $sub_color);
+  background-image: -webkit-linear-gradient(-45deg, $base_color 25%, $sub_color 25%, $sub_color 50%, $base_color 50%, $base_color 75%, $sub_color 75%, $sub_color);
+  background-image: linear-gradient(-45deg, $base_color 25%, $sub_color 25%, $sub_color 50%, $base_color 50%, $base_color 75%, $sub_color 75%, $sub_color);
+  background-size: $size $size;
+}
+
 @mixin keyframes($animation-name) {
   @-webkit-keyframes $animation-name { @content; }
   @-moz-keyframes $animation-name { @content; }
@@ -62,7 +83,7 @@ body {
   width: 100%;
   height: 100%;
   margin: auto;
-  background-color: #E7E0CB;
+  background-color: $main_bg_color;
   font-size: 16px;
 }
 
@@ -76,15 +97,35 @@ a:focus {
 }
 
 // Module
-$main_color: #fd7f09;
-$button_color: #2ecc71;
+.site-title {
+  font-family: 'Wawati SC', 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+  color: white;
+}
+
+.site-header {
+  width: 100%;
+  height: 30px;
+  @include background_oblique_stripe($main_color, $main_dark_color, 40px);
+}
+
+.header-title {
+  font-size: 24px;
+}
+
+.site-footer {
+  width: 100%;
+}
+
+.copyright {
+  text-align: center;
+  color: $main_light_color;
+}
 
 .main-slideshow-area {
   position: relative;
   width: 100%;
   height: 300px;
   background: $main_color;
-  margin: 20px 0;
 }
 
 .main-slideshow-area-inner {
@@ -112,7 +153,7 @@ $button_color: #2ecc71;
 
 .site-information-item {
   top: 15%;
-  font-family: 'Wawati SC', 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+  font-size: 18px;
   color: white;
 }
 
@@ -121,13 +162,13 @@ $button_color: #2ecc71;
   @include animation-name(slide-in);
 }
 
-.site-description {
-  font-size: 24px;
+.information-description {
+  letter-spacing: 0.5em;
 }
 
-.site-title {
+.information-title {
   margin: 40px 0;
-  font-size: 72px;
+  font-size: 80px;
   text-shadow:
     0 1px 0 #CCC,
     0 2px 0 #5e5e5e,
@@ -186,6 +227,7 @@ $button_color: #2ecc71;
 .main {
   position: relative;
   width: 960px;
+  height: 310px;
   margin: 20px auto;
 }
 
@@ -207,7 +249,7 @@ $button_color: #2ecc71;
   float: left;
   width: 64px;
   height: 64px;
-  margin: 2px 4px;
+  margin: 0px 4px;
   text-align: center;
 }
 

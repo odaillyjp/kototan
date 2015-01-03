@@ -19,7 +19,7 @@ app.Views.WordView = Backbone.View.extend
     @el
 
 app.Views.WordsView = Backbone.View.extend
-  el: 'body'
+  el: '.site-container'
 
   events:
     'click .kana-item-link': 'appendKana'

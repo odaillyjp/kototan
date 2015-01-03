@@ -1,0 +1,18 @@
+!!!
+%html
+  %head
+    %title ことばを見つける | ことばの探索機
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  %body
+    %header.site-header
+      %h1.site-title.header-title
+        ことばの探索機
+
+    .site-container
+      = yield
+
+    %footer.site-footer
+      .copyright
+        Maintained by #{link_to 'odaillyjp', 'https://github.com/odaillyjp'}. &copy; 2014 All rights reserved.

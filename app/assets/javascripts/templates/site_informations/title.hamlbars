@@ -1,9 +1,9 @@
-.site-description
-  『ワードバスケット』で使える「ことば」を見つける
-.site-title
+.information-description
+  『ワードバスケット』で使える「ことば」を見つける。
+.site-title.information-title
   ことばの探索機
-.site-description
+%div
   %strong.blue><あいうえお表
   の中から、
   %strong.red><最初の文字
-  をクリックしてください
+  をクリックしてください。
