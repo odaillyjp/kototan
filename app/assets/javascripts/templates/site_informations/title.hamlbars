@@ -3,7 +3,4 @@
 .site-title.information-title
   ことばの探索機
 %div
-  %strong.blue><あいうえお表
-  の中から、
-  %strong.red><最初の文字
-  をクリックしてください。
+  あいうえお表の中から、最初の文字をクリックしてください。
