@@ -17,3 +17,7 @@
 
 $ ->
   Kototan.init()
+
+# hack for Turbolinks
+$(document).on "page:load", ->
+  Backbone.history.loadUrl()
