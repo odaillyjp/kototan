@@ -110,6 +110,13 @@ a:focus {
   @include background_oblique_stripe($main_color, $main_dark_color, 40px);
 }
 
+.site-header-inner {
+  position: relative;
+  width: 960px;
+  height: 100%;
+  margin: auto;
+}
+
 .header-title {
   font-size: 24px;
 }
