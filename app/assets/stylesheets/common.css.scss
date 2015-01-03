@@ -88,12 +88,14 @@ body {
 }
 
 a {
-  color: #039;
+  color: $s1_light_color;
+  text-decoration: none;
 }
 
 a:hover,
 a:focus {
-  color: #03F;
+  color: $s1_light_color;
+  text-decoration: underline;
 }
 
 // Module
@@ -118,7 +120,7 @@ a:focus {
 
 .copyright {
   text-align: center;
-  color: $main_light_color;
+  color: $main_dark_color;
 }
 
 .main-slideshow-area {
@@ -224,6 +226,11 @@ a:focus {
   opacity: 0.6;
 }
 
+.card-item-link:hover {
+  text-decoration: none;
+  opacity: 1;
+}
+
 .main {
   position: relative;
   width: 960px;
@@ -267,6 +274,8 @@ a:focus {
 .kana-item-link:hover {
   padding: 16px;
   font-size: 32px;
+  color: $s1_color;
+  text-decoration: none;
 }
 
 .kana-item-blank {
@@ -356,14 +365,14 @@ $movement-of-word: 50%;
 }
 
 .is-head .card-item-link {
-  border: 4px solid #27ae60;
+  border: 4px solid $s2_dark_color;
   color: #2c3e50;
   font-size: 24px;
   opacity: 1;
 }
 
 .is-last .card-item-link {
-  border: 4px solid #2ecc71;
+  border: 4px solid $s2_light_color;
   color: #2c3e50;
   font-size: 24px;
   opacity: 1;
