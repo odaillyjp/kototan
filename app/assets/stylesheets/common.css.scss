@@ -162,13 +162,13 @@ a:focus {
   transition: all 0.6s;
 }
 
-.site-information-item {
+.information-item {
   top: 15%;
   font-size: 18px;
   color: white;
 }
 
-.site-information-item:not(:first-child) {
+.information-item:not(:first-child) {
   @include animation-duration(0.6s);
   @include animation-name(slide-in);
 }

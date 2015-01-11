@@ -37,7 +37,7 @@ app.Views.WordSlidesView = Backbone.View.extend
     @listenTo @cardsCollection, 'add', @appendCard
     @listenTo @cardsCollection, 'change:currentIndex', @jumpToCurrentCard
     @render()
-    @appendSiteInformation(JST['site_informations/title'])
+    @appendInformation(JST['informations/title'])
 
   render: ->
     $(@$el).append(JST['word_slides/index'])
@@ -48,10 +48,10 @@ app.Views.WordSlidesView = Backbone.View.extend
 
     if @cardsCollection.isEmpty()
       @cardsCollection.add(card)
-      @appendSiteInformation(JST['site_informations/first_kana'])
+      @appendInformation(JST['informations/first_kana'])
       return false
 
-    @removeSiteInformation()
+    @removeInformation()
     @removeNotice()
     $('.tab-button-list', @$el).removeClass('is-hidden')
     previousKana = @cardsCollection.last().get('kana')
@@ -121,20 +121,20 @@ app.Views.WordSlidesView = Backbone.View.extend
     $('.tab-button-list', @$el).addClass('is-hidden')
     $('.slide-list', @$el).html('')
     $('.card-list', @$el).html('')
-    @appendSiteInformation(JST['site_informations/title'])
+    @appendInformation(JST['informations/title'])
 
   appendCard: (card) ->
     cardView = new app.Views.CardView(model: card)
     $('.card-list', @$el).append(cardView.render())
     @cardsCollection.setCurrentCard(card)
 
-  appendSiteInformation: (template) ->
-    $('.site-information-item.on-center', @$el).removeClass('on-center').addClass('on-left-side is-opaqued')
-    siteInformationView = new app.Views.SiteInformationView
-    $('.slide-list', @$el).append(siteInformationView.render(template))
+  appendInformation: (template) ->
+    $('.information-item.on-center', @$el).removeClass('on-center').addClass('on-left-side is-opaqued')
+    informationView = new app.Views.InformationSlideView
+    $('.slide-list', @$el).append(informationView.render(template))
 
-  removeSiteInformation: ->
-    $('.site-information-item', @$el).remove()
+  removeInformation: ->
+    $('.information-item', @$el).remove()
 
   appendNotice: (message) ->
     message = message.join(' ') if _.isArray(message)
