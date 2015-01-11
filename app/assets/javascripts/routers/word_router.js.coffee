@@ -6,4 +6,4 @@ app.Routers.WordRouter = Backbone.Router.extend
     '.*' : 'index'
 
   index: ->
-    new app.Views.WordsView
+    new app.Views.WordSlidesView

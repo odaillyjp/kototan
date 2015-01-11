@@ -3,11 +3,11 @@
 app = @Kototan
 app.Views ?= {}
 
-app.Views.WordView = Backbone.View.extend
+app.Views.WordSlideView = Backbone.View.extend
   tagName: 'article'
   id: -> "word-#{@model.cid}"
   className: 'word-item slide-item on-center'
-  template: JST['words/item']
+  template: JST['word_slides/item']
 
   initialize: ->
     @listenTo @model, 'destroy', @remove
@@ -18,7 +18,7 @@ app.Views.WordView = Backbone.View.extend
     @$el.html(@template(context))
     @el
 
-app.Views.WordsView = Backbone.View.extend
+app.Views.WordSlidesView = Backbone.View.extend
   el: '.site-container'
 
   events:
@@ -40,7 +40,7 @@ app.Views.WordsView = Backbone.View.extend
     @appendSiteInformation(JST['site_informations/title'])
 
   render: ->
-    $(@$el).append(JST['words/index'])
+    $(@$el).append(JST['word_slides/index'])
 
   appendKana: (elem) ->
     currentKana = elem.currentTarget.dataset.kana
@@ -79,7 +79,7 @@ app.Views.WordsView = Backbone.View.extend
 
   appendWord: (word) ->
     $('.word-item.is-new', @$el).removeClass('is-new')
-    wordView = new app.Views.WordView(model: word)
+    wordView = new app.Views.WordSlideView(model: word)
     wordView.$el.addClass('is-new')
     $('.slide-list', @$el).append(wordView.render())
     @wordsCollection.setCurrentWord(word)
