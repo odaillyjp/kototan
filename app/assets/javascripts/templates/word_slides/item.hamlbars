@@ -1,2 +1,2 @@
-.word-item-name {{name}}
-.word-item-furigana {{furigana}}
+.word-slide-item-name {{name}}
+.word-slide-item-furigana {{furigana}}

@@ -5,6 +5,8 @@
         最初からやり直す
       .tab-button-item.button-remove-word
         ことばを取り除く
+      .tab-button-item.button-show-log-modal
+        全てのことばを見る
     .button-movable-word.button-movable-left.is-hidden
       <
     .button-movable-word.button-movable-right.is-hidden

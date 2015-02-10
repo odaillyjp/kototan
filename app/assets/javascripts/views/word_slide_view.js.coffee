@@ -5,8 +5,8 @@ app.Views ?= {}
 
 app.Views.WordSlideView = Backbone.View.extend
   tagName: 'article'
-  id: -> "word-#{@model.cid}"
-  className: 'word-item slide-item on-center'
+  id: -> "word-slide-#{@model.cid}"
+  className: 'word-slide-item slide-item on-center'
   template: JST['word_slides/item']
 
   initialize: ->
@@ -28,6 +28,7 @@ app.Views.WordSlidesView = Backbone.View.extend
     'click .button-movable-right': 'moveToNextWord'
     'click .button-clear-word': 'clearWord'
     'click .button-remove-word': 'removeWord'
+    'click .button-show-log-modal': 'showLogModal'
 
   initialize: ->
     @wordsCollection = new app.Collections.WordsCollection()
@@ -78,7 +79,7 @@ app.Views.WordSlidesView = Backbone.View.extend
       dataType: 'JSON'
 
   appendWord: (word) ->
-    $('.word-item.is-new', @$el).removeClass('is-new')
+    $('.word-slide-item.is-new', @$el).removeClass('is-new')
     wordView = new app.Views.WordSlideView(model: word)
     wordView.$el.addClass('is-new')
     $('.slide-list', @$el).append(wordView.render())
@@ -123,6 +124,10 @@ app.Views.WordSlidesView = Backbone.View.extend
     $('.card-list', @$el).html('')
     @appendInformation(JST['informations/title'])
 
+  showLogModal: ->
+    wordLogsView = new app.Views.WordLogsView(collection: @wordsCollection)
+    $(@$el).append(wordLogsView.render())
+
   appendCard: (card) ->
     cardView = new app.Views.CardView(model: card)
     $('.card-list', @$el).append(cardView.render())
@@ -161,7 +166,7 @@ app.Views.WordSlidesView = Backbone.View.extend
     @wordsCollection.setCurrentWord(@wordsCollection.at(destinationCardIndex - 1))
 
   jumpToCurrentWord: ->
-    currentWord = $("#word-#{@wordsCollection.currentWord().cid}", @$el)
+    currentWord = $("#word-slide-#{@wordsCollection.currentWord().cid}", @$el)
     currentWord.prevAll().removeClass('on-center on-right-side').addClass('on-left-side is-opaqued')
     currentWord.nextAll().removeClass('on-center on-left-side').addClass('on-right-side is-opaqued')
     currentWord.removeClass('on-right-side on-left-side is-opaqued').addClass('on-center')

@@ -1,0 +1,8 @@
+.word-log-item-row.encircle-area
+  %span.word-log-item-head.encircle {{head}}
+  %span.word-log-item-last.encircle {{last}}
+.word-log-item-row.word-item-area
+  .word-log-item-name> {{name}}
+  .word-log-item-furigana> {{furigana}}
+  %div
+    %a{ href: 'https://www.google.co.jp/#q={{name}}', target: '_blank' } Googleで検索
