@@ -10,8 +10,10 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
+
 gem 'haml-rails'
 gem 'handlebars_assets'
+gem 'puma'
 gem 'word_basket', github: 'odaillyjp/word_basket', tag: 'v1.0.0'
 
 # Rails aseets
