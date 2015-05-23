@@ -27,11 +27,13 @@ source 'https://rubygems.org' do
   end
 
   group :development, :test do
+    gem 'capybara'
     gem 'pry'
     gem 'pry-rails'
     gem 'pry-doc'
     gem 'pry-byebug'
     gem 'rspec-rails'
+    gem 'poltergeist'
   end
 
   group :production do
