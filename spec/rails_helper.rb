@@ -49,3 +49,8 @@ RSpec.configure do |config|
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
 end
+
+WordBasket.configure do |config|
+  config.database_adapter = 'local_file'
+  config.database_options = { storage_path: 'db/words_test.json' }
+end
