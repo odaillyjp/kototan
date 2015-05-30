@@ -1,15 +1,15 @@
 .main-slideshow-area
   .main-slideshow-area-inner
     .tab-button-list.is-hidden
-      .tab-button-item.button-clear-word
+      %a.tab-button-item.button-clear-word{ href: '#' }
         最初からやり直す
-      .tab-button-item.button-remove-word
+      %a.tab-button-item.button-remove-word{ href: '#' }
         ことばを取り除く
-      .tab-button-item.button-show-log-modal
+      %a.tab-button-item.button-show-log-modal{ href: '#' }
         全てのことばを見る
-    .button-movable-word.button-movable-left.is-hidden
+    %a.button-movable-word.button-movable-left.is-hidden{ href: '#' }
       <
-    .button-movable-word.button-movable-right.is-hidden
+    %a.button-movable-word.button-movable-right.is-hidden{ href: '#' }
       >
     %section.slide-list
       -# スライド表示部分
@@ -26,4 +26,4 @@
               - if kana == '＿'
                 %a.kana-item-blank= kana
               - else
-                %a.kana-item-link{ data: { kana: kana }}= kana
+                %a.kana-item-link{ href: '#', data: { kana: kana } }= kana
