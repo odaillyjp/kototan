@@ -5,4 +5,4 @@
   .word-log-item-name> {{name}}
   .word-log-item-furigana> {{furigana}}
   %div
-    %a{ href: 'https://www.google.co.jp/#q={{name}}', target: '_blank' } Googleで検索
+    %a{ href: 'https://www.google.co.jp/#q={{name}}', target: '_blank', class: 'focus-decoration' } Googleで検索

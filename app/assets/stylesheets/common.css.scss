@@ -139,6 +139,11 @@ a:focus {
   color: $main_dark_color;
 }
 
+.focus-decoration:hover,
+.focus-decoration:focus {
+  text-decoration: underline;
+}
+
 .main-slideshow-area {
   position: relative;
   width: 100%;
