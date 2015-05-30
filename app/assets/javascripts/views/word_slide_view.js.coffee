@@ -69,7 +69,6 @@ app.Views.WordSlidesView = Backbone.View.extend
       .error (xhr) =>
         errors = $.parseJSON(xhr.responseText).errors
         @appendNotice(errors)
-
     false
 
   sendSearchRequest: (head, last) ->
@@ -113,6 +112,7 @@ app.Views.WordSlidesView = Backbone.View.extend
           @cardsCollection.currentCard().destroy()
           @wordsCollection.setCurrentWord(prevWord)
           @cardsCollection.setCurrentCard(prevCard)
+    false
 
   clearWord: ->
     @wordsCollection.reset()
@@ -123,10 +123,12 @@ app.Views.WordSlidesView = Backbone.View.extend
     $('.slide-list', @$el).html('')
     $('.card-list', @$el).html('')
     @appendInformation(JST['informations/title'])
+    false
 
   showLogModal: ->
     wordLogsView = new app.Views.WordLogsView(collection: @wordsCollection)
     $(@$el).append(wordLogsView.render())
+    false
 
   appendCard: (card) ->
     cardView = new app.Views.CardView(model: card)
@@ -151,10 +153,12 @@ app.Views.WordSlidesView = Backbone.View.extend
   moveToPrevWord: ->
     @wordsCollection.setCurrentWord(@wordsCollection.prevWord())
     @cardsCollection.setCurrentCard(@cardsCollection.prevCard())
+    false
 
   moveToNextWord: ->
     @wordsCollection.setCurrentWord(@wordsCollection.nextWord())
     @cardsCollection.setCurrentCard(@cardsCollection.nextCard())
+    false
 
   jumpToWord: (elem) ->
     return false if @wordsCollection.isEmpty()
@@ -164,6 +168,7 @@ app.Views.WordSlidesView = Backbone.View.extend
     return false if destinationCardIndex == @cardsCollection.currentIndex
     @cardsCollection.setCurrentCard(@cardsCollection.at(destinationCardIndex))
     @wordsCollection.setCurrentWord(@wordsCollection.at(destinationCardIndex - 1))
+    false
 
   jumpToCurrentWord: ->
     currentWord = $("#word-slide-#{@wordsCollection.currentWord().cid}", @$el)
