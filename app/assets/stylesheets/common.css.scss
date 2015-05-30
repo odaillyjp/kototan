@@ -98,15 +98,11 @@ body {
   font-size: 16px;
 }
 
-a {
-  color: $s1_light_color;
-  text-decoration: none;
-}
-
+a,
 a:hover,
 a:focus {
   color: $s1_light_color;
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 // Module
@@ -324,6 +320,7 @@ a:focus {
 }
 
 .tab-button-item {
+  color: black;
   position: relative;
   float: left;
   background: white;
