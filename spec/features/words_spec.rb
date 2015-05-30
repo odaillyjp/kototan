@@ -6,6 +6,7 @@ feature 'Word', type: :feature, js: true do
     WordBasket::Word.create('イチゴ牛乳', 'いちごぎゅうにゅう')
     WordBasket::Word.create('浮世絵', 'うきよえ')
     WordBasket::Word.create('笑顔', 'えがお')
+    WordBasket::Word.create('言い伝え', 'いいつたえ')
     visit root_path
   end
 
@@ -115,6 +116,49 @@ feature 'Word', type: :feature, js: true do
           expect(page.all('.word-slide-item')[1].native['class'].split(/\s/)).to be_include 'is-opaqued'
           expect(page.all('.word-slide-item')[2].native['class'].split(/\s/)).to be_include 'is-opaqued'
           expect(page.all('.word-slide-item')[3].native['class'].split(/\s/)).to be_include 'is-opaqued'
+        end
+      end
+    end
+
+    feature '最後の言葉を取り除く' do
+      background do
+        within('.tab-button-list') do
+          click_link 'ことばを取り除く'
+        end
+      end
+
+      scenario '最後から一つ前の言葉が中央に表示されること' do
+        within('.slide-item.on-center') do
+          expect(page.find('.word-slide-item-name')).to have_content('浮世絵')
+          expect(page.find('.word-slide-item-furigana')).to have_content('うきよえ')
+        end
+      end
+
+      scenario '最後の言葉がページから無くなっていること' do
+        within('.slide-item.on-center') do
+          expect(page).to have_no_content('笑顔')
+          expect(page).to have_no_content('えがお')
+        end
+      end
+    end
+
+    feature '途中の言葉を取り除く' do
+      background do
+        within('.card-list') { click_link 'う' }
+        within('.tab-button-list') { click_link 'ことばを取り除く' }
+      end
+
+      scenario '新しい組み合わせで検索した言葉が中央に表示されること' do
+        within('.slide-item.on-center') do
+          expect(page.find('.word-slide-item-name')).to have_content('言い伝え')
+          expect(page.find('.word-slide-item-furigana')).to have_content('いいつたえ')
+        end
+      end
+
+      scenario '最後の言葉がページから無くなっていること' do
+        within('.slide-item.on-center') do
+          expect(page).to have_no_content('浮世絵')
+          expect(page).to have_no_content('うきよえ')
         end
       end
     end
