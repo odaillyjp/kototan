@@ -8,6 +8,7 @@ source 'https://rubygems.org' do
   gem 'jquery-rails'
   gem 'turbolinks'
   gem 'jbuilder', '~> 2.0'
+  gem 'web-console', '~> 2.0'
 
   gem 'foreman'
   gem 'haml-rails'
