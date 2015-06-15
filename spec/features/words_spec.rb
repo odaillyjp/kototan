@@ -14,7 +14,9 @@ feature 'Word', type: :feature, js: true do
     background do
       within('.main-kana') do
         click_link 'あ'
+        wait_for_ajax
         click_link 'い'
+        wait_for_ajax
       end
     end
 
@@ -29,6 +31,7 @@ feature 'Word', type: :feature, js: true do
       background do
         within('.tab-button-list') do
           click_link '最初からやり直す'
+          wait_for_ajax
         end
       end
 
@@ -44,7 +47,9 @@ feature 'Word', type: :feature, js: true do
     background do
       within('.main-kana') do
         click_link 'あ'
+        wait_for_ajax
         click_link 'お'
+        wait_for_ajax
       end
     end
 
@@ -56,10 +61,15 @@ feature 'Word', type: :feature, js: true do
   feature '存在する言葉を連続で検索する' do
     background do
       click_link 'あ'
+      wait_for_ajax
       click_link 'い'
+      wait_for_ajax
       click_link 'う'
+      wait_for_ajax
       click_link 'え'
+      wait_for_ajax
       click_link 'お'
+      wait_for_ajax
     end
 
     scenario '最後の選択した文字を使った言葉が中央に表示されること' do
@@ -91,6 +101,7 @@ feature 'Word', type: :feature, js: true do
       background do
         within('.card-list') do
           click_link 'あ'
+          wait_for_ajax
         end
       end
 
@@ -124,6 +135,7 @@ feature 'Word', type: :feature, js: true do
       background do
         within('.tab-button-list') do
           click_link 'ことばを取り除く'
+          wait_for_ajax
         end
       end
 
@@ -144,8 +156,15 @@ feature 'Word', type: :feature, js: true do
 
     feature '途中の言葉を取り除く' do
       background do
-        within('.card-list') { click_link 'う' }
-        within('.tab-button-list') { click_link 'ことばを取り除く' }
+        within('.card-list') do
+          click_link 'う'
+          wait_for_ajax
+        end
+
+        within('.tab-button-list') do
+          click_link 'ことばを取り除く'
+          wait_for_ajax
+        end
       end
 
       scenario '新しい組み合わせで検索した言葉が中央に表示されること' do
