@@ -1,4 +1,7 @@
-%a.modal-control.modal-button-close 閉じる
-.modal-content
-  %section.word-log-list
-    -# ことばのログ表示部分
+.popup
+  %a.modal-control.modal-button-close 閉じる
+  .modal-content
+    %section.word-log-list
+      -# ことばのログ表示部分
+
+.overlay

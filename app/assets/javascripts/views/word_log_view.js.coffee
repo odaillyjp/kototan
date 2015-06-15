@@ -20,6 +20,7 @@ app.Views.WordLogsView = Backbone.View.extend
 
   events:
     'click .modal-button-close': 'remove'
+    'click .overlay': 'remove'
 
   render: ->
     @$el.html(@template())

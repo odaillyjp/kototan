@@ -361,13 +361,19 @@ a:focus {
 }
 
 .modal {
-  background: rgba(255,255,255,0.8);
-  position: fixed;
-  top: 0px;
-  right: 0px;
-  bottom: 0px;
-  left: 0px;
-  z-index: 200;
+  .popup > * {
+    z-index: 200;
+  }
+
+  .overlay {
+    background: rgba(255,255,255,0.8);
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    z-index: 100;
+  }
 }
 
 .modal-control {
