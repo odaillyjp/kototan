@@ -55,3 +55,7 @@ WordBasket.configure do |config|
   config.database_adapter = 'local_file'
   config.database_options = { storage_path: 'db/words_test.json' }
 end
+
+# Set up Coveralls
+require 'coveralls'
+Coveralls.wear!

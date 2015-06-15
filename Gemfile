@@ -29,6 +29,7 @@ source 'https://rubygems.org' do
 
   group :development, :test do
     gem 'capybara'
+    gem 'coveralls', require: false
     gem 'pry'
     gem 'pry-rails'
     gem 'pry-doc'
