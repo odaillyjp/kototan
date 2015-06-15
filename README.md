@@ -6,8 +6,9 @@ http://kototan.info/
 
 # Requirements
 
-- Ruby 2.1.5
-- Rails 4.1.8
+- Ruby 2.2.1.
+- Rails 4.2.1
+- Firebase
 
 # License
 
