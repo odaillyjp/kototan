@@ -82,18 +82,18 @@ feature 'Word', type: :feature, js: true do
     scenario '最後以外の言葉は左側表示となっていること' do
       within('.slide-list') do
         # TODO: class を持っているかを調べる matcher を作る
-        expect(page.all('.word-slide-item')[0].native['class'].split(/\s/)).to be_include 'on-left-side'
-        expect(page.all('.word-slide-item')[1].native['class'].split(/\s/)).to be_include 'on-left-side'
-        expect(page.all('.word-slide-item')[2].native['class'].split(/\s/)).to be_include 'on-left-side'
+        expect(page.all('.word-slide-item')[0]).to have_class 'on-left-side'
+        expect(page.all('.word-slide-item')[1]).to have_class 'on-left-side'
+        expect(page.all('.word-slide-item')[2]).to have_class 'on-left-side'
       end
     end
 
     scenario '最後以外の言葉は非表示となっていること' do
       within('.slide-list') do
         # TODO: class を持っているかを調べる matcher を作る
-        expect(page.all('.word-slide-item')[0].native['class'].split(/\s/)).to be_include 'is-opaqued'
-        expect(page.all('.word-slide-item')[1].native['class'].split(/\s/)).to be_include 'is-opaqued'
-        expect(page.all('.word-slide-item')[2].native['class'].split(/\s/)).to be_include 'is-opaqued'
+        expect(page.all('.word-slide-item')[0]).to have_class 'is-opaqued'
+        expect(page.all('.word-slide-item')[1]).to have_class 'is-opaqued'
+        expect(page.all('.word-slide-item')[2]).to have_class 'is-opaqued'
       end
     end
 
@@ -114,19 +114,17 @@ feature 'Word', type: :feature, js: true do
 
       scenario '最後以外の言葉は右側表示となっていること' do
         within('.slide-list') do
-          # TODO: class を持っているかを調べる matcher を作る
-          expect(page.all('.word-slide-item')[1].native['class'].split(/\s/)).to be_include 'on-right-side'
-          expect(page.all('.word-slide-item')[2].native['class'].split(/\s/)).to be_include 'on-right-side'
-          expect(page.all('.word-slide-item')[3].native['class'].split(/\s/)).to be_include 'on-right-side'
+          expect(page.all('.word-slide-item')[1]).to have_class 'on-right-side'
+          expect(page.all('.word-slide-item')[2]).to have_class 'on-right-side'
+          expect(page.all('.word-slide-item')[3]).to have_class 'on-right-side'
         end
       end
 
       scenario '最後以外の言葉は非表示となっていること' do
         within('.slide-list') do
-          # TODO: class を持っているかを調べる matcher を作る
-          expect(page.all('.word-slide-item')[1].native['class'].split(/\s/)).to be_include 'is-opaqued'
-          expect(page.all('.word-slide-item')[2].native['class'].split(/\s/)).to be_include 'is-opaqued'
-          expect(page.all('.word-slide-item')[3].native['class'].split(/\s/)).to be_include 'is-opaqued'
+          expect(page.all('.word-slide-item')[1]).to have_class 'is-opaqued'
+          expect(page.all('.word-slide-item')[2]).to have_class 'is-opaqued'
+          expect(page.all('.word-slide-item')[3]).to have_class 'is-opaqued'
         end
       end
     end
