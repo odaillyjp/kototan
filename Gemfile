@@ -14,7 +14,7 @@ source 'https://rubygems.org' do
   gem 'haml-rails'
   gem 'handlebars_assets'
   gem 'puma'
-  gem 'word_basket', github: 'odaillyjp/word_basket', tag: 'v1.0.0'
+  gem 'word_basket', github: 'odaillyjp/word_basket', tag: 'v1.0.1'
 
   group :doc do
     gem 'sdoc', '~> 0.4.0'

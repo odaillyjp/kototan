@@ -1,9 +1,9 @@
 GIT
   remote: git://github.com/odaillyjp/word_basket.git
-  revision: b8b0abbcfa86540bb5615eab7c54bc80c29873f1
-  tag: v1.0.0
+  revision: 62715c6687c6fc35cfb580735125969c43088844
+  tag: v1.0.1
   specs:
-    word_basket (1.0.0)
+    word_basket (1.0.1)
       activesupport
       firebase
       moji
