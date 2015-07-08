@@ -49,6 +49,12 @@ RSpec.configure do |config|
   # The different available types are documented in the features, such as in
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
+
+  config.after(:all) do
+    if Rails.env.test?
+      FileUtils.rm_f(Dir[WordBasket.configuration.database_options[:storage_path]])
+    end
+  end
 end
 
 WordBasket.configure do |config|
