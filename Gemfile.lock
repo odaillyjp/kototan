@@ -86,7 +86,7 @@ GEM
     domain_name (0.5.24)
       unf (>= 0.0.5, < 1.0.0)
     erubis (2.7.0)
-    execjs (2.5.2)
+    execjs (2.6.0)
     firebase (0.2.4)
       httpclient
       json
@@ -94,7 +94,7 @@ GEM
       thor (~> 0.19.1)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
-    haml (4.0.6)
+    haml (4.0.7)
       tilt
     haml-rails (0.9.0)
       actionpack (>= 4.0.1)
@@ -155,7 +155,7 @@ GEM
       yard (~> 0.8)
     pry-rails (0.3.4)
       pry (>= 0.9.10)
-    puma (2.12.3)
+    puma (2.13.4)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
     rack (1.6.4)
@@ -178,7 +178,7 @@ GEM
     rails-assets-underscore (1.8.3)
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
-    rails-dom-testing (1.0.6)
+    rails-dom-testing (1.0.7)
       activesupport (>= 4.2.0.beta, < 5.0)
       nokogiri (~> 1.6.0)
       rails-deprecated_sanitizer (>= 1.0.1)
@@ -251,7 +251,7 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (1.4.1)
-    tins (1.5.4)
+    tins (1.6.0)
     turbolinks (2.5.3)
       coffee-rails
     tzinfo (1.2.2)
