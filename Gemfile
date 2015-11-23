@@ -35,7 +35,8 @@ source 'https://rubygems.org' do
     gem 'pry-doc'
     gem 'pry-byebug'
     gem 'rspec-rails'
-    gem 'poltergeist'
+    # NOTE: 1.8.0以上を使うとCapybara::Node::Findersのallが正しく動かないことがある
+    gem 'poltergeist', '~> 1.7.0'
   end
 
   group :production do
